@@ -1,0 +1,49 @@
+// ==UserScript==
+// @name         TypeRacerCheater
+// @version      0.1
+// @description  Be the fastest typer in the world!
+// @author       GoInK
+// @match        http://play.typeracer.com/*
+// @grant        none
+// ==/UserScript==
+
+running=1;
+
+function stopCheater(){
+    document.getElementsByClassName("newWestWidget")[0].innerHTML = 'Script TypeRacerCheater disabled… :\'(</br><button id="enableCheater">Enable TypeRacerCheater</button>';
+    document.getElementById("enableCheater").addEventListener("click", launchCheater , false);
+    running = 0;
+}
+
+function launchCheater(){
+    document.getElementsByClassName("newWestWidget")[0].innerHTML = 'Script TypeRacerCheater enabled…!! ;-)</br><button id="disableCheater">Disable TypeRacerCheater</button>';
+    document.getElementById("disableCheater").addEventListener("click", stopCheater , false);
+    running=1;
+    typeWord();
+}
+
+//Set the good word in the input text
+function typeWord(){
+    //Get the ID of the current sentence
+    id=parseInt(document.getElementsByClassName("nonHideableWords")[0].getElementsByTagName("span")[1].id.replace('nhwMiddlegwt-uid-',''));
+    if(!!document.getElementById("nhwMiddlegwt-uid-")+id && running==1){
+        if(document.getElementById("nhwMiddlegwt-uid-"+id).innerHTML !== ''){
+            document.getElementsByClassName("txtInput")[0].value = document.getElementById("nhwMiddlegwt-uid-"+id).innerHTML;
+            document.getElementsByClassName("txtInput")[0].value += document.getElementById("nhwMiddleCommagwt-uid-"+(id+1)).innerHTML;
+            window.setTimeout(typeWord, 120);
+        }
+    }
+}
+
+//Add the Enable/disable button after page is loaded
+function checkRoom(){
+     if(typeof document.getElementsByClassName("newWestWidget")[0] !== 'undefined'){
+        stopCheater();
+    } else {
+        window.setTimeout(checkRoom, 500);
+    }
+}
+
+(function() {
+    window.setTimeout(checkRoom, 2000);
+})();
