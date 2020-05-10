@@ -7,7 +7,8 @@
  
 ### Utilisation :
  - Go on http://play.typeracer.com/
- - You will find a button **"Enable TypeRacerCheater"** or **"Disable TypeRacerCheater"**.
+ - You will find a button **"Enable TypeRacerCheater"** or **"Disable TypeRacerCheater"** on the left.
+ - Type the first word.
  - Enable the script with the previous button.
  - When it's enabled, you just need to press "space" to valid the word.
 
