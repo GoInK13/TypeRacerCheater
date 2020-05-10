@@ -3,11 +3,13 @@
 // @version      0.1
 // @description  Be the fastest typer in the world!
 // @author       GoInK
-// @match        http://play.typeracer.com/*
+// @match        https://play.typeracer.com/*
 // @grant        none
 // ==/UserScript==
 
-running=1;
+var running=1;
+var firstWord="";
+var firstStart=0;
 
 function stopCheater(){
     document.getElementsByClassName("newWestWidget")[0].innerHTML = 'Script TypeRacerCheater disabled… :\'(</br><button id="enableCheater">Enable TypeRacerCheater</button>';
@@ -25,14 +27,18 @@ function launchCheater(){
 //Set the good word in the input text
 function typeWord(){
     //Get the ID of the current sentence
-    id=parseInt(document.getElementsByClassName("nonHideableWords")[0].getElementsByTagName("span")[1].id.replace('nhwMiddlegwt-uid-',''));
-    if(!!document.getElementById("nhwMiddlegwt-uid-")+id && running==1){
-        if(document.getElementById("nhwMiddlegwt-uid-"+id).innerHTML !== ''){
-            document.getElementsByClassName("txtInput")[0].value = document.getElementById("nhwMiddlegwt-uid-"+id).innerHTML;
-            document.getElementsByClassName("txtInput")[0].value += document.getElementById("nhwMiddleCommagwt-uid-"+(id+1)).innerHTML;
-            window.setTimeout(typeWord, 120);
-        }
+    //var id=parseInt(document.getElementsByClassName("nonHideableWords")[0].getElementsByTagName("span")[1].id.replace('nhwMiddlegwt-uid-',''));
+    var word="";
+    for(let i=firstStart; i<document.getElementsByClassName("inputPanel")[0].getElementsByTagName("span").length-1; i++){
+       word+=document.getElementsByClassName("inputPanel")[0].getElementsByTagName("span")[i].innerHTML;
     }
+    if(firstWord=="") {
+        firstWord=word;
+        firstStart=1;
+    }
+    console.log("Word : "+word);
+    document.getElementsByClassName("txtInput")[0].value = word;
+    window.setTimeout(typeWord, 120);
 }
 
 //Add the Enable/disable button after page is loaded
